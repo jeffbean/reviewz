@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.0.0/css/bootstrap.min.css' %}" type="text/css"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Reviewz{% endblock %}</title>
+    {% block morestyle %}
+    {% endblock %}
+</head>
+<body>
+{% include 'subtemplates/nav.html' %}
+
+{% block modal %}
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}
+
+<div class='container'>
+    {% block beforerow %}
+    {% endblock %}
+    <div class='row'>
+        {% block header_messages %}
+            <div class="container">
+                <div id="alert-div" class="row-fluid span6 offset3">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+        <h2 class="text-center" id="main_title">
+            {% block header %}
+                {{ page_header }}
+            {% endblock %}
+        </h2>
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+{% block scripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{% static 'bootstrap-3.0.0/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+{% block morescripts %}
+{% endblock %}
+</body>
+</html>

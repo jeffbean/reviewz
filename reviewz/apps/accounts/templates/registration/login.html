@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load bootstrap %}
+{% block title %}Reviewz - Login{% endblock %}
+{% block content %}
+    <div class="container col-sm-6 col-sm-offset-3">
+        <div class="row">
+            {% if form.errors %}
+                <div class='well alert alert-error row span6 offset3'>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Username or password was wrong. Please try again.</strong></div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <form class="well form-horizontal" method="post" action="{% url "django.contrib.auth.views.login" %}">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <div class="form-actions btn-group">
+                    <button type="submit" class="btn btn-primary" value="login">Sign in</button>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <a class="button btn btn-info" href="{% url "password_reset" %}">Reset Password</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
