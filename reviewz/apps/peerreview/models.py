@@ -20,7 +20,7 @@ class ReviewQuestion(models.Model):
     description = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
-        return self.question
+        return 'Q: {0}'.format(self.question)
 
 
 class PeerReview(models.Model):
@@ -32,7 +32,7 @@ class PeerReview(models.Model):
     date_required = models.DateTimeField(null=True, blank=True)
 
     def __unicode__(self):
-        return '{0} -> {1}: {2}'.format(self.from_user, self.to_user, self.questionnaire)
+        return '{id}: {0} -> {1}: {2}'.format(self.from_user, self.to_user, self.questionnaire, id=self.id)
 
     class Meta:
         unique_together = ("questionnaire", "to_user", "from_user")
@@ -44,7 +44,7 @@ class ReviewAnswer(models.Model):
     answer = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
-        return 'Review {0}, Q: {1} A: {2}'.format(self.peer_review.to_user, self.question, self.answer)
+        return 'A: {0}'.format(self.answer)
 
     class Meta:
         unique_together = ('peer_review', 'question')

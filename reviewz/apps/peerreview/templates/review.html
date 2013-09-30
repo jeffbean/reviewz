@@ -1,0 +1,16 @@
+{% extends 'review_base.html' %}
+{% block content %}
+    <h2>Review {{ review }}</h2>
+    <ul>
+        <li>From: {{ review.from_user }}</li>
+        <li>To: {{ review.to_user }}</li>
+        <ol>
+            {% for question in questions %}
+                <li>{{ question }}</li>
+                <ul>
+                    <li>{{ question.reviewanswer_set.all|first }}</li>
+                </ul>
+            {% endfor %}
+        </ol>
+    </ul>
+{% endblock %}

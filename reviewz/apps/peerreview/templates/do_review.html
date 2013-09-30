@@ -5,11 +5,12 @@
     <div class="panel panel-default container">
         <div class="panel-heading row">
             <h2 class="panel-title pull-left">{% with  review.to_user.get_full_name as name %}{% if name %}{{ name }}{% else %}{{ review.to_user }}{% endif %}{% endwith %}</h2>
+
             <h3 class="panel-title pull-right text-right">{{ review.questionnaire }}</h3>
         </div>
         <div class="panel-body">
             <ol class="">
-                {% for question in review.questionnaire.reviewquestion_set.all %}
+                {% for question in questions %}
                     <li>{{ question }}</li>
                     {% if question.description %}
                         <ul>
@@ -20,8 +21,12 @@
             </ol>
         </div>
     </div>
-    <form action="" method="post">{% csrf_token %}
+
+    <form action="{% url "do_review" review.id %}" method="post" >{% csrf_token %}
+        {% for form in forms %}
         {{ form|bootstrap }}
-        <input type="submit" value="Send message"/>
+        {% endfor %}
+        <input type="submit" value="Submit"/>
     </form>
+
 {% endblock %}
