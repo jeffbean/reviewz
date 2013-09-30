@@ -1,26 +1,32 @@
 {% extends 'review_base.html' %}
 {% block content %}
     <h2>My Reviews</h2>
-    {% for peer_review in object_list %}
-        <div class="panel panel-default container">
-            <div class="panel-heading row">
-                <h2 class="panel-title pull-left">{% with  peer_review.to_user.get_full_name as name %}{% if name %}{{ name }}{% else %}{{ peer_review.to_user }}{% endif %}{% endwith %}</h2>
-                <h3 class="panel-title pull-right text-right">{{ peer_review.questionnaire }} <a href="{% url 'do_review' peer_review.id %}"><span class="glyphicon glyphicon-edit"></span></a></h3>
+    {% if object_list %}
+
+        {% for peer_review in object_list %}
+            <div class="panel panel-default container">
+                <div class="panel-heading row">
+                    <h2 class="panel-title pull-left">{% with  peer_review.to_user.get_full_name as name %}{% if name %}{{ name }}{% else %}{{ peer_review.to_user }}{% endif %}{% endwith %}</h2>
+
+                    <h3 class="panel-title pull-right text-right">{{ peer_review.questionnaire }} <a href="{% url 'do_review' peer_review.id %}"><span class="glyphicon glyphicon-edit"></span></a></h3>
+                </div>
+                <div class="panel-body">
+                    <ol>
+                        {% for question in peer_review.questionnaire.reviewquestion_set.all %}
+                            <li>{{ question }}</li>
+                            {% if question.description %}
+                                <ul>
+                                    <li>{{ question.description }}</li>
+                                </ul>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </div>
             </div>
-            <div class="panel-body">
-                <ol class="">
-                    {% for question in peer_review.questionnaire.reviewquestion_set.all %}
-                        <li>{{ question }}</li>
-                        {% if question.description %}
-                            <ul>
-                                <li>{{ question.description }}</li>
-                            </ul>
-                        {% endif %}
-                    {% endfor %}
-                </ol>
-            </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <div>You have no reviews!</div>
+    {% endif %}
     {% include 'subtemplates/pager.html' %}
 
 {% endblock %}

@@ -21,7 +21,7 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['*.archivas.com', 'localhost']
 
-TIME_ZONE = 'America/New York'
+TIME_ZONE = 'America/New_York'
 
 LANGUAGE_CODE = 'en-us'
 SITE_ID = 1
