@@ -1,0 +1,78 @@
+{% extends 'review_base.html' %}
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        {% if reviewquestionnaire %}
+            <li><a href="{% url "questionnaire_list" %}">Questionnaires</a></li>
+            <li><a href="{% url "questionnaire_detail" reviewquestionnaire.pk %}"> {{ reviewquestionnaire.title }}</a></li>
+        {% endif %}
+        <li class="active">Questions</li>
+    </ol>
+
+{% endblock %}
+
+{% block content %}
+    {% if reviewquestion_list %}
+        {% for reviewquestion in reviewquestion_list %}
+            <div class="row">
+
+                <h2 class="col-lg-11">{{ reviewquestion.question }}</h2>
+                <button type="button" class="btn btn-danger " data-toggle="collapse"
+                        data-target="#question_description_{{ forloop.counter }}"><span
+                        class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+
+            </div>
+
+            <div id="question_description_{{ forloop.counter }}" class="well well-sm collapse">
+                {% if reviewquestion.description %}
+                    <h4>Description:</h4>
+                    <p>{{ reviewquestion.description }}</p>
+                {% endif %}
+                <hr>
+                <h4>Questionnaires:</h4>
+                <ul>
+
+                    {% for q in  reviewquestion.questionnaire.all %}
+                        <li><a href="{% url "questionnaire_detail" q.pk %}">{{ q.title }}</a></li>
+                    {% empty %}
+                        <p>need button to add this question to questionnaires</p>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        {% endfor %}
+    {% elif reviewquestionnaire %}
+        {% for reviewquestion in reviewquestionnaire.reviewquestion_set.all %}
+            <div class="row">
+
+                <h2 class="col-lg-11">{{ reviewquestion.question }}</h2>
+                <button type="button" class="btn btn-danger " data-toggle="collapse"
+                        data-target="#question_description_{{ forloop.counter }}"><span
+                        class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+
+            </div>
+
+            <div id="question_description_{{ forloop.counter }}" class="well well-sm collapse">
+                {% if reviewquestion.description %}
+                    <h4>Description:</h4>
+                    <p>{{ reviewquestion.description }}</p>
+                {% endif %}
+                <hr>
+                <h4>Questionnaires:</h4>
+                <ul>
+
+                    {% for q in  reviewquestion.questionnaire.all %}
+                        <li><a href="{% url "questionnaire_detail" q.pk %}">{{ q.title }}</a></li>
+                    {% empty %}
+                        <p>need button to add this question to questionnaires</p>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+{% endblock %}

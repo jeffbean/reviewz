@@ -1,12 +1,10 @@
+# coding=utf-8
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from reviewz.apps.peerreview.views import PeerReviewHome, MyPeerReviews, DoReviewView, PeerReviewView, QuestionnaireCreate, QuestionnaireDetail, QuestionnaireList
+from reviewz.apps.peerreview.views import *
 
 admin.autodiscover()
 from django.conf.urls import patterns, url
-
-
-
 
 urlpatterns = patterns(
     '',
@@ -25,5 +23,10 @@ urlpatterns = patterns(
         name='questionnaire_detail'),
     url(r'^questionnaire/list/$', QuestionnaireList.as_view(),
         name='questionnaire_list'),
+
+    url(r'^question/create/$', QuestionCreateView.as_view(), name='question_create'),
+    url(r'^question/(?P<pk>\d+)/$', QuestionDetailView.as_view(), name='question_detail'),
+    url(r'^question/list/$', QuestionListView.as_view(), name='question_list'),
+    url(r'^question/list/(?P<pk>\d+)/$', QuestionnaireQuestionListView.as_view(), name='questionnaire_question_list'),
     #url(r'^do_review/(?P<pk>\d+)/submit/$', login_required(ReviewSubmitView.as_view()), name='submit_review'),
 )

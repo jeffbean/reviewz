@@ -1,0 +1,29 @@
+{% extends 'review_base.html' %}
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{% url "questionnaire_list" %}">Questionnaires</a></li>
+        <li class="active">{{ reviewquestion.question }}</li>
+    </ol>
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-6"><h2 class="col-lg-12">Question: {{ reviewquestion.question }}</h2>
+
+    <h3>Questionnaires:</h3>
+    <ul>
+
+            {% for q in  reviewquestion.questionnaire.all %}
+                <li><a href="{% url "questionnaire_detail" q.pk %}">{{ q.title }}</a></li>
+            {% empty %}
+                <p>need button to add this question to questionnaires</p>
+            {% endfor %}
+
+    </ul>
+
+    {% if reviewquestion.description %}
+        <h4>Description:</h4>
+        <p class="well well-sm" >{{ reviewquestion.description }}</p>
+    {% endif %}
+    </div>
+{% endblock %}

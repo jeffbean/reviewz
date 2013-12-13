@@ -97,6 +97,27 @@ class QuestionnaireList(ListView):
     model = ReviewQuestionnaire
     template_name = 'reviewquestionnaire_list.html'
 
+
 class QuestionnaireDetail(DetailView):
     model = ReviewQuestionnaire
     template_name = 'reviewquestionnaire_detail.html'
+
+
+class QuestionCreateView(CreateView):
+    model = ReviewQuestion
+    template_name = 'reviewquestion_form.html'
+
+
+class QuestionDetailView(DetailView):
+    model = ReviewQuestion
+    template_name = 'reviewquestion_detail.html'
+
+
+class QuestionListView(ListView):
+    model = ReviewQuestion
+    template_name = 'reviewquestion_list.html'
+
+
+class QuestionnaireQuestionListView(DetailView):
+    model = ReviewQuestionnaire
+    template_name = 'reviewquestion_list.html'

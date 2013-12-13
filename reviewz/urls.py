@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from reviewz import settings
 
 admin.autodiscover()
@@ -15,6 +15,7 @@ class ReveiwzIndex(TemplateView):
 
 urlpatterns = patterns(
     '',
+    url(r'^$', RedirectView.as_view(url='/reviews/')),
     url(r'^reviews/',  include('reviewz.apps.peerreview.urls')),
     url(r'^accounts/', include('reviewz.apps.accounts.urls')),
 
