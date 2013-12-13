@@ -15,7 +15,7 @@ class ReveiwzIndex(TemplateView):
 
 urlpatterns = patterns(
     '',
-    url(r'',  include('reviewz.apps.peerreview.urls')),
+    url(r'^reviews/',  include('reviewz.apps.peerreview.urls')),
     url(r'^accounts/', include('reviewz.apps.accounts.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

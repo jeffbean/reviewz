@@ -1,0 +1,13 @@
+{% extends "review_base.html" %}
+
+{% block content %}
+    <h4><span class="glyphicon
+    glyphicon-plus"></span><a href="{% url "questionnaire_create" %}"> New Questionnaire</a></h4>
+    <ol>
+        {% for reviewquestionnaire in reviewquestionnaire_list %}
+            <li><a href="
+            {% url "questionnaire_detail" reviewquestionnaire.id %}">{{ reviewquestionnaire.title }}</a>
+                </li>
+        {% endfor %}
+    </ol>
+{% endblock %}

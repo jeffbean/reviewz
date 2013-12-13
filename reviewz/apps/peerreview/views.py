@@ -3,9 +3,9 @@ from django.core.urlresolvers import reverse
 from django.db.transaction import commit_on_success
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.views.generic import TemplateView, ListView, CreateView
-from django.views.generic.detail import SingleObjectMixin, DetailView
+from django.views.generic.detail import DetailView
 from reviewz.apps.peerreview.forms import ReviewQuestionAnswerForm
-from reviewz.apps.peerreview.models import PeerReview, ReviewAnswer, ReviewQuestion
+from reviewz.apps.peerreview.models import PeerReview, ReviewAnswer, ReviewQuestion, ReviewQuestionnaire
 
 
 class PeerReviewHome(TemplateView):
@@ -32,7 +32,8 @@ class PeerReviewView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PeerReviewView, self).get_context_data(**kwargs)
-        questions = self.get_object().questionnaire.reviewquestion_set.filter(questionnaire=self.get_object().questionnaire)
+        questions = self.get_object().questionnaire.reviewquestion_set.filter(
+            questionnaire=self.get_object().questionnaire)
         context['questions'] = questions
         return context
 
@@ -68,18 +69,34 @@ class DoReviewView(DetailView):
 
         for index in range(0, len((post_dict.get('question')))):
             try:
-                peer_review = PeerReview.objects.get(id=post_dict['peer_review'][index])
+                peer_review = PeerReview.objects.get(
+                    id=post_dict['peer_review'][index])
             except PeerReview.DoesNotExist:
                 raise Http404
             try:
-                review_question = ReviewQuestion.objects.get(id=post_dict['question'][index])
+                review_question = ReviewQuestion.objects.get(
+                    id=post_dict['question'][index])
             except ReviewQuestion.DoesNotExist:
                 raise Http404
 
-            (review_answer, created) = ReviewAnswer.objects.get_or_create(peer_review=peer_review, question=review_question)
+            (review_answer, created) = ReviewAnswer.objects.get_or_create(
+                peer_review=peer_review, question=review_question)
             review_answer.answer = post_dict['answer'][index]
             review_answer.save()
             print review_answer
-        return HttpResponseRedirect(reverse('review', kwargs={'pk': self.get_object().pk}))
+        return HttpResponseRedirect(
+            reverse('review', kwargs={'pk': self.get_object().pk}))
 
 
+class QuestionnaireCreate(CreateView):
+    model = ReviewQuestionnaire
+    template_name = 'reviewquestionnaire_form.html'
+
+
+class QuestionnaireList(ListView):
+    model = ReviewQuestionnaire
+    template_name = 'reviewquestionnaire_list.html'
+
+class QuestionnaireDetail(DetailView):
+    model = ReviewQuestionnaire
+    template_name = 'reviewquestionnaire_detail.html'

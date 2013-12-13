@@ -1,0 +1,14 @@
+{% extends "review_base.html" %}
+
+{% block content %}
+    <h1>{{ reviewquestionnaire.title }}</h1>
+
+    {% if reviewquestionnaire.description %}
+        <p class="well">{{ reviewquestionnaire.description }}</p>
+    {% endif %}
+    <ol>
+        {% for question in reviewquestionnaire.reviewquestion_set.all %}
+            <li>{{ question }}</li>
+        {% endfor %}
+    </ol>
+{% endblock %}

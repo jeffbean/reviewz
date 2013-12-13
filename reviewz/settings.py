@@ -12,6 +12,7 @@ ADMINS = (
 MANAGERS = ADMINS
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'w1hmwkc8(=ouib(w5ve3q7qdcxvf0wun#3z^8+e_pj81r&&o8c'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -33,7 +34,8 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static').replace('\\', '/')
+STATIC_ROOT = os.path.join(
+    os.path.dirname(__file__), 'static').replace('\\', '/')
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
@@ -66,6 +68,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'reviewz.urls'
@@ -73,7 +76,8 @@ ROOT_URLCONF = 'reviewz.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'reviewz.wsgi.application'
 
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/'),)
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -86,11 +90,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'debug_toolbar',
     'reviewz',
     'reviewz.apps.peerreview',
     'reviewz.apps.accounts',
 )
-
 
 DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.version.VersionDebugPanel',
@@ -104,8 +108,10 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.logger.LoggingPanel',
 )
 
+
 def custom_show_toolbar(request):
     return DEBUG_TOOLBAR
+
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,

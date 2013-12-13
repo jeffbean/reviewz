@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 from django.db import models
 
 # Create your models here.
@@ -10,6 +11,9 @@ class ReviewQuestionnaire(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('questionnaire_detail', kwargs={'pk': self.pk})
+
     def __unicode__(self):
         return self.title
 
@@ -20,7 +24,7 @@ class ReviewQuestion(models.Model):
     description = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
-        return 'Q: {0}'.format(self.question)
+        return '{0}'.format(self.question)
 
 
 class PeerReview(models.Model):
