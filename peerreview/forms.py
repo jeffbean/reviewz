@@ -1,5 +1,5 @@
 from django import forms
-from reviewz.apps.peerreview.models import ReviewAnswer, PeerReview, ReviewQuestion
+from peerreview.models import ReviewAnswer, PeerReview, ReviewQuestion
 
 __author__ = 'Jeffrey'
 

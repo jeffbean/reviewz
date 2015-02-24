@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User, Group
 import ldap
-from reviewz import settings
+from reviewproject import settings
 
 
 class ActiveDirectoryGroupMembershipSSLBackend(object):

@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView, RedirectView
-from reviewz import settings
+from reviewproject import settings
 
 admin.autodiscover()
 
@@ -16,8 +16,8 @@ class ReveiwzIndex(TemplateView):
 urlpatterns = patterns(
     '',
     url(r'^$', RedirectView.as_view(url='/reviews/')),
-    url(r'^reviews/',  include('reviewz.apps.peerreview.urls')),
-    url(r'^accounts/', include('reviewz.apps.accounts.urls')),
+    url(r'^reviews/',  include('peerreview.urls')),
+    url(r'^accounts/', include('accounts.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -4,8 +4,8 @@ from django.db.transaction import commit_on_success
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.views.generic import TemplateView, ListView, CreateView
 from django.views.generic.detail import DetailView
-from reviewz.apps.peerreview.forms import ReviewQuestionAnswerForm
-from reviewz.apps.peerreview.models import PeerReview, ReviewAnswer, ReviewQuestion, ReviewQuestionnaire
+from peerreview.forms import ReviewQuestionAnswerForm
+from peerreview.models import PeerReview, ReviewAnswer, ReviewQuestion, ReviewQuestionnaire
 
 
 class PeerReviewHome(TemplateView):
@@ -61,7 +61,6 @@ class DoReviewView(DetailView):
         """
         <QueryDict: {u'answer': [u'Rain', u'blue', u'both answers'], u'question': [u'1', u'2', u'4'], u'peer_review': [u'1', u'1', u'1']}>
         """
-        print request.POST
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
 
@@ -83,7 +82,6 @@ class DoReviewView(DetailView):
                 peer_review=peer_review, question=review_question)
             review_answer.answer = post_dict['answer'][index]
             review_answer.save()
-            print review_answer
         return HttpResponseRedirect(
             reverse('review', kwargs={'pk': self.get_object().pk}))
 

@@ -1,5 +1,5 @@
 # coding=utf-8
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -7,7 +7,7 @@ from django.db import models
 
 
 class ReviewQuestionnaire(models.Model):
-    created_by = models.ForeignKey(get_user_model())
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     date_created = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
@@ -36,8 +36,8 @@ class ReviewQuestion(models.Model):
 
 class PeerReview(models.Model):
     questionnaire = models.ForeignKey(ReviewQuestionnaire)
-    from_user = models.ForeignKey(get_user_model(), related_name='from_user')
-    to_user = models.ForeignKey(get_user_model(), related_name='to_user')
+    from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='from_user')
+    to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='to_user')
     is_final = models.BooleanField(default=False)
     date_completed = models.DateTimeField(null=True, blank=True)
     date_required = models.DateTimeField(null=True, blank=True)

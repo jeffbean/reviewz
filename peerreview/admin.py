@@ -1,5 +1,5 @@
 from django.contrib import admin
-from reviewz.apps.peerreview.models import ReviewQuestionnaire, ReviewQuestion, PeerReview, ReviewAnswer
+from peerreview.models import ReviewQuestionnaire, ReviewQuestion, PeerReview, ReviewAnswer
 
 __author__ = 'Jeffrey'
 
