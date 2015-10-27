@@ -16,9 +16,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 ADMINS = (('Jeffrey Bean', 'jrb3330@gmail.com'),)
 MY_EMAIL = 'jrb3330@gmail.com'
-# EMAIL_HOST = 'smtp.gmail.com'
-# SERVER_EMAIL = 'odin@gmail'
-# DEFAULT_FROM_EMAIL = 'odin@wal.hds.com'
+# EMAIL_HOST = 'smtp.example.com'
+# SERVER_EMAIL = 'odin@example'
+# DEFAULT_FROM_EMAIL = 'odin@example.com'
 
 VERSION = '0.1.1'
 
